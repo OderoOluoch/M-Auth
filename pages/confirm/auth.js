@@ -1,6 +1,6 @@
 import redirect from 'nextjs-redirect'
 
-const Redirect = redirect('http://localhost:3000')
+const Redirect = redirect('https://m-duka.vercel.app/')
 
 export default () => (
   <Redirect>
