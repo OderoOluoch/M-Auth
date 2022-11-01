@@ -41,7 +41,7 @@ export default function MpesaPinInfo({ formStep, nextFormStep }) {
   }
 
   return (
-    <div className={formStep === 1 ? styles.showForm : styles.hideForm}>
+    <div className={formStep === 2 ? styles.showForm : styles.hideForm}>
       <h2>Enter Your mpesa pin</h2>
 
       <Form ref={formRef} onSubmit={handleSubmit}>

@@ -1,17 +1,26 @@
 import { useRef } from "react";
 import styles from "../../styles/styles.module.scss";
 import { Form } from "@unform/web";
-import Input from "../Input Fields/Input";
+import CheckBox from "../Input Fields/CheckBox";
 import { useFormData } from "../../context";
 import * as yup from "yup";
+import { useRouter } from 'next/router'
 
 const schema = yup.object().shape({
-  otp: yup.number().required().positive().integer("Please Enter a Valid OTP")
+  checkbox: yup.bool().oneOf([true], "Checkbox is required"),
 });
 
-export default function OTPInfo({ formStep, nextFormStep }) {
+export default function ConfirmAuth({ formStep, nextFormStep }) {
   const { setFormValues } = useFormData();
   const formRef = useRef();
+
+  const router = useRouter()
+
+
+  const handleLoginTestOdero = e => {
+    //e.preventDefault()
+    router.push('/confirm/auth')
+  }
 
   async function handleSubmit(data) {
     try {
@@ -22,6 +31,9 @@ export default function OTPInfo({ formStep, nextFormStep }) {
       });
       // Validation passed - do something with data
       setFormValues(data);
+      // e.preventDefault()
+      // router.push('/confirm/auth')
+      
       nextFormStep();
     } catch (err) {
       const errors = {};
@@ -38,13 +50,15 @@ export default function OTPInfo({ formStep, nextFormStep }) {
   }
 
   return (
-    <div className={formStep === 1 ? styles.showForm : styles.hideForm}>
-      <h2>Enter OTP</h2>
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <div className={styles.formRow}>
-          <Input type="number" label="OTP" name="otp" maxLength="6"/>
-        </div>
-        <button type="submit">Next</button>
+    <div className={formStep === 3 ? styles.showForm : styles.hideForm}>
+      <h2>Confirm Authentication</h2>
+
+      <Form ref={formRef} onSubmit={handleLoginTestOdero}>
+        {/* <div className={styles.formRow}>
+          <CheckBox name="checkbox" label="Ready to go?" />
+        </div> */}
+
+        <button type="submit">Click to confirm login with Mpesa Transaction</button>
       </Form>
     </div>
   );

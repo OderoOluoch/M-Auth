@@ -1,5 +1,7 @@
 import MpesaPinInfo from "./MpesaPinInfo";
-import ConfirmPurchase from "./ConfirmPurchase";
+import ConfirmAuth from "./ConfirmAuth";
 import OTPInfo from "./OTPInfo";
+import MSISDNInfo from "./MsisdnInput";
+import TransactionConsent from "./TransactionConsent"
 
-export { MpesaPinInfo, ConfirmPurchase, OTPInfo };
+export { MSISDNInfo, MpesaPinInfo, ConfirmAuth, OTPInfo, TransactionConsent };
