@@ -92,7 +92,9 @@ const AuthPage = ({ authorize }) => {
       }
     }
     if (formStep == 3) {
-      router.push(`/confirm/auth?sessionid=${sessionId}`);
+      router.push(
+        `/confirm/auth?sessionid=${sessionId}&actionType=${query.actionType}`
+      );
     }
   };
 
@@ -122,6 +124,7 @@ const AuthPage = ({ authorize }) => {
         )}
         {formStep == 3 && (
           <ConfirmAuth
+            query={query}
             sessionId={sessionId}
             formStep={formStep}
             nextFormStep={nextFormStep}

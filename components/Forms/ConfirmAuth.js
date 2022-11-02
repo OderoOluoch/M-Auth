@@ -13,7 +13,7 @@ const schema = yup.object().shape({
 });
 
 export async function getStaticProps(context) {
-  console.log('context', context);
+  // console.log('context', context);
   const sessionId = '234234234242355';
   const res = await fetch(`${server}/api/consent?session_id=${sessionId}`);
   const consentData = await res.json();
@@ -25,18 +25,21 @@ export async function getStaticProps(context) {
 }
 
 const isLogin = (data) => {
+  console.log('query', data);
   if (data) {
-    if (data.transaction) {
-      return false;
+    if (data.actionType) {
+      return true;
     }
-    return true;
+    return false;
   }
-  return true;
+  return false;
 };
 
 export default function ConfirmAuth({ formStep, nextFormStep, ...rest }) {
   const { setFormValues } = useFormData();
-  const [action, setAction] = useState('login'); // login | trans
+  const [queryData, setqueryData] = useState({ actionType: '' }); // login | trans
+  const router = useRouter;
+  const { query } = router;
   const [consentData, setconsentData] = useState({
     application: {
       client_id: 'm-duka',
@@ -109,7 +112,7 @@ export default function ConfirmAuth({ formStep, nextFormStep, ...rest }) {
   // }
 
   useEffect(() => {
-    console.log('rest props', rest);
+    setqueryData(rest.query);
   }, []);
 
   return (
@@ -117,7 +120,7 @@ export default function ConfirmAuth({ formStep, nextFormStep, ...rest }) {
       <h2>Confirm Authentication</h2>
 
       <Form ref={formRef} onSubmit={handleConfirmation}>
-        {!isLogin(consentData) ? (
+        {!isLogin(queryData) ? (
           <>
             <div>You are about to approve a transaction</div>
             <div>
@@ -138,7 +141,7 @@ export default function ConfirmAuth({ formStep, nextFormStep, ...rest }) {
             </div>
           </>
         )}
-        {isLogin(consentData) ? (
+        {isLogin(queryData) ? (
           <button type='submit'>Click to confirm login with Mpesa</button>
         ) : (
           <button type='submit'>Click to Pay with Mpesa</button>
