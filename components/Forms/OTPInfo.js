@@ -1,12 +1,12 @@
-import { useRef } from "react";
-import styles from "../../styles/styles.module.scss";
-import { Form } from "@unform/web";
-import Input from "../Input Fields/Input";
-import { useFormData } from "../../context";
-import * as yup from "yup";
+import { useRef } from 'react';
+import styles from '../../styles/styles.module.scss';
+import { Form } from '@unform/web';
+import Input from '../Input Fields/Input';
+import { useFormData } from '../../context';
+import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  otp: yup.number().required().positive().integer("Please Enter a Valid OTP")
+  otp: yup.number().required().positive().integer('Please Enter a Valid OTP'),
 });
 
 export default function OTPInfo({ formStep, nextFormStep }) {
@@ -22,7 +22,7 @@ export default function OTPInfo({ formStep, nextFormStep }) {
       });
       // Validation passed - do something with data
       setFormValues(data);
-      nextFormStep();
+      nextFormStep(data);
     } catch (err) {
       const errors = {};
       // Validation failed - do show error
@@ -42,9 +42,9 @@ export default function OTPInfo({ formStep, nextFormStep }) {
       <h2>Enter OTP</h2>
       <Form ref={formRef} onSubmit={handleSubmit}>
         <div className={styles.formRow}>
-          <Input type="number" label="OTP" name="otp" maxLength="6"/>
+          <Input type='number' label='OTP' name='otp' maxLength='6' />
         </div>
-        <button type="submit">Next</button>
+        <button type='submit'>Next</button>
       </Form>
     </div>
   );

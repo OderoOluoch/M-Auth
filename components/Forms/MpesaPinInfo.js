@@ -25,7 +25,7 @@ export default function MpesaPinInfo({ formStep, nextFormStep }) {
       });
       // Validation passed - do something with data
       setFormValues(data);
-      nextFormStep();
+      nextFormStep(data);
     } catch (err) {
       const errors = {};
       // Validation failed - do show error
